@@ -1,7 +1,7 @@
 const fs = require("fs")
 
 const { FOSSIL_FUEL_FILE_PATH } = require("../constants")
-const FossilData = require("./FossilData")
+const FossilData = require("./FossilLine")
 
 module.exports = function readFossilData() {
 

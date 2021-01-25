@@ -1,16 +1,15 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const { PORT } = require("./constants")
 
 const readFossilData = require("./helpers/readFossilData")
-const FOSSIL_DATA = readFossilData()
+const FossilData = require("./helpers/FossilData")
+const FOSSIL_DATA = FossilData(readFossilData())
 
+const usePollutersApi = require("./polluters-api/pollutersApi")(FOSSIL_DATA)
+usePollutersApi(app)
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Fossil fuel CO2 by nation API listening at http://localhost:${PORT}`)
 })
 

@@ -1,27 +1,32 @@
-module.exports = function FossilData(line) {
-  const [
-    year, 
-    country,
-    total,
-    solidFuel,
-    liquidFuel,
-    gasFuel,
-    cement,
-    gasFlaring,
-    perCapita,
-    bunkerFuels
-  ] = line.trim().split(",")
+module.exports = function FossilData(fossilDataEntries) {
+  let records = [], 
+      firstRecord,
+      lastRecord,
+      knownTypes = []
+
+  for(const entry of fossilDataEntries) {
+    let year = parseInt(entry.year)
+    if(isNaN(year)) {
+      continue
+    }
+
+    if(!Array.isArray(records[year])) {
+      records[year] = []
+    }
+    records[year].push(entry)
+
+    if(firstRecord > year || !firstRecord) {
+      firstRecord = year
+    }
+
+    if(lastRecord < year || !lastRecord) {
+      lastRecord = year
+    }
+  }
 
   return {
-    year,
-    country,
-    total,
-    solidFuel,
-    liquidFuel, 
-    gasFuel, 
-    cement,
-    gasFlaring, 
-    perCapita, 
-    bunkerFuels
-  }
+    records,
+    firstRecord,
+    lastRecord
+  }; 
 }
