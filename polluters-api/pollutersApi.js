@@ -41,10 +41,6 @@ function spliceYears(fromText, toText, data) {
 }
 
 function parsePollution(type, top, records) {
-  if(typeof type !== "string") { 
-    type = "Total"
-  }
-
   return records.map(year => {
     let polluters = []
 
@@ -75,6 +71,10 @@ function parsePollution(type, top, records) {
 }
 
 function mapTypeToRecordType(type, knownTypes) {
+  if(!type) {
+    return "total"
+  }
+
   for(let key in knownTypes) {
     if(knownTypes[key].toLowerCase() === type.toLowerCase()) {
       return key
@@ -95,11 +95,11 @@ function checkQuery(from, to, type, top, knownTypes) {
     errors.push("Query error: to query must be integer")
   }
 
-  if(!type) {
+  if(type === false) { // Strict equal to check if type is false. If !type used other falsy values would result in true
     errors.push("Query error: type query not recognized. Possible types: " + Object.values(knownTypes).join(", "))
   }
 
-  if(isNaN(top)) {
+  if(top && isNaN(top)) {
     errors.push("Query error: Top must be integer")
   }
 
