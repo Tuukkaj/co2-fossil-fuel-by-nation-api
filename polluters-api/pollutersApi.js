@@ -46,12 +46,18 @@ function parsePollution(type, top, records) {
   }
 
   return records.map(year => {
-    let polluters = year.map(rec => {
-      return {
-        name: rec.country,
-        pollutionAmount: rec[type]
+    let polluters = []
+
+    for(let rec of year) {
+      if(isNaN(rec[type])) {
+        continue
       }
-    })
+
+      polluters.push({
+        name: rec.country,
+        pollutionAmount: Number(rec[type])
+      })
+    }
     
     polluters = polluters.sort((a,b) => {
       return b.pollutionAmount - a.pollutionAmount 
