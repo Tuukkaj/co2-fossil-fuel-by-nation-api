@@ -7,7 +7,7 @@ module.exports = function FossilData(fossilDataEntries) {
 
   for(const entry of fossilDataEntries) {
     let year = parseInt(entry.year)
-    if(isNaN(year)) {
+    if(isNaN(year) || entry.country === "") {
       continue
     }
 
