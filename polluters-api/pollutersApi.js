@@ -7,17 +7,8 @@ module.exports = function createPollutersApi(fossilData) {
           type = req.query?.type
           top  = parseInt(req.query?.top)
 
-    /*
-    if(isNaN(from) || isNaN(to) || isNaN(top)) {
-      return res.status(400).send("Following query parameters must be integers: from, to, top")
-    }
-      */
-
     let data = spliceYears(from, to, fossilData)
-    data = toApiResponse(type, top, data)
-    //data =  data.slice
-
-   // console.log(data)
+    data = parsePollution(type, top, data)
 
     return res.status(200).json(data)
   }
@@ -33,12 +24,12 @@ module.exports = function createPollutersApi(fossilData) {
 
 function spliceYears(from, to, data) {
   let spliceFrom = from < data.firstRecord ? data.firstRecord : from,
-  spliceTo   = to > data.lastRecord ? data.lastRecord     : to
+      spliceTo   = to > data.lastRecord ? data.lastRecord     : to
 
   return data.records.slice(spliceFrom, spliceTo + 1)
 }
 
-function toApiResponse(type, top, records) {
+function parsePollution(type, top, records) {
   if(typeof type !== "string") { 
     type = "Total"
   }
