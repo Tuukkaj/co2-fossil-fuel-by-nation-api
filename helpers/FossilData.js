@@ -35,6 +35,8 @@ module.exports = function FossilData(fossilDataEntries) {
 
 function parseKnownTypes(csvHeaderEntry) {
   let copy = JSON.parse(JSON.stringify(csvHeaderEntry))
+  delete copy.year // Not emission type
+  delete copy.country // Not emission type 
 
   for(let key in copy) {
     // Special handling for types with parenthesis. In this case "Bunker fuels (Not in Total)"
