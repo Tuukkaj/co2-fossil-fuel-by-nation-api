@@ -3,8 +3,10 @@ const fs = require("fs")
 const { FOSSIL_FUEL_FILE_PATH } = require("../constants")
 const FossilData = require("./FossilLine")
 
+/*
+  Reads fossil data CSV file. CSV file path is specified in constants.js.
+*/
 module.exports = function readFossilData() {
-
   try {
     const data = fs.readFileSync(FOSSIL_FUEL_FILE_PATH, {encoding:'utf8', flag:'r'})
 

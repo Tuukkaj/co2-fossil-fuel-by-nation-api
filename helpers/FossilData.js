@@ -1,3 +1,9 @@
+/*
+  Goes through array of FossilLine.js objects and parses away corrupted lines where year or country are not defined.
+  Also maps out known types, first record (first year) and last record (latest year). records array is array of arrays.
+  Each year represents index of the array. For example year 1950 is 1950 index in records array.
+  Returns object with records, knownTypes, firstRecord and lastRecord.
+*/
 module.exports = function FossilData(fossilDataEntries) {
   const knownTypes = parseKnownTypes(fossilDataEntries[0])
 

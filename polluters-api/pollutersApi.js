@@ -1,6 +1,13 @@
 const { POLLUTERS_API_PATH, POLLUTERS_WORST_API_PATH }  = require("../constants")
 
+/** 
+ Create's function that can be used to register Polluters API to Express.
+ Function call takes fossil data as argument so that can be used in functions by reference.
+*/
 module.exports = function createPollutersApi(fossilData) {
+  /*
+    /worst api. Searches fossil data records using query parameters. 
+  */
   function worst(req, res) {
     const from = req.query?.from,
           to   = req.query?.to,
@@ -19,6 +26,9 @@ module.exports = function createPollutersApi(fossilData) {
     return res.status(200).json(data)
   }
   
+  /*
+    Function used to register API to Express.
+  */
   return function usePollutersApi(app) {
     const WORST_URL = POLLUTERS_API_PATH + POLLUTERS_WORST_API_PATH
 
@@ -28,6 +38,9 @@ module.exports = function createPollutersApi(fossilData) {
   }
 }
 
+/*
+  Returns wanted years from the fossil data. Uses from and to queries. 
+*/
 function spliceYears(fromText, toText, data) {
   let from = parseInt(fromText) || 0,
       to   = parseInt(toText) || data.lastRecord
@@ -40,6 +53,9 @@ function spliceYears(fromText, toText, data) {
   return data.records.slice(spliceFrom, spliceTo + 1)
 }
 
+/*
+  Returns wanted pollution type amounts. Uses queries top and type.
+*/
 function parsePollution(type, top, records) {
   let array = []; 
   
@@ -79,6 +95,9 @@ function parsePollution(type, top, records) {
 }
 
 
+/*
+  Maps given type to object variable name.
+*/
 function mapTypeToRecordType(type, knownTypes) {
   if(!type) {
     return "total"
@@ -93,6 +112,9 @@ function mapTypeToRecordType(type, knownTypes) {
   return false
 }
 
+/*
+  Check if given query has errors.
+*/
 function checkQuery(from, to, type, top, knownTypes) {
   const errors = []
   

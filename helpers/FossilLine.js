@@ -1,3 +1,6 @@
+/*
+  Parses Fossil data CSV's line and creates object from it. 
+*/
 module.exports = function FossilData(line) {
   const [
     year, 
