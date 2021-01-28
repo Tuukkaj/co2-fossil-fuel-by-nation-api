@@ -41,8 +41,14 @@ function spliceYears(fromText, toText, data) {
 }
 
 function parsePollution(type, top, records) {
-  return records.map(year => {
+  let array = []; 
+  
+  for(let year of records) {
     let polluters = []
+
+    if(!year) {
+      continue
+    }
 
     for(let rec of year) {
       if(isNaN(rec[type])) {
@@ -63,12 +69,15 @@ function parsePollution(type, top, records) {
       polluters = polluters.slice(0, top)
     }
 
-    return {
-      year: year[0].year, 
+    array.push({
+      year: Number(year[0].year), 
       polluters
-    }
-  })
+    })
+  }
+
+  return array; 
 }
+
 
 function mapTypeToRecordType(type, knownTypes) {
   if(!type) {
