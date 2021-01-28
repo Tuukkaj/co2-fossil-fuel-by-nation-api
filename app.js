@@ -13,3 +13,5 @@ app.listen(PORT, () => {
   console.log(`Fossil fuel CO2 by nation API listening at http://localhost:${PORT}`)
 })
 
+// Exported to use in testing
+module.exports = [app, FOSSIL_DATA]
