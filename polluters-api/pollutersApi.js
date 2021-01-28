@@ -108,8 +108,8 @@ function checkQuery(from, to, type, top, knownTypes) {
     errors.push("Query error: type query not recognized. Possible types: " + Object.values(knownTypes).join(", "))
   }
 
-  if(top && isNaN(top)) {
-    errors.push("Query error: Top must be integer")
+  if(top && isNaN(top) || top < 1) {
+    errors.push("Query error: Top must be integer and larger than 0")
   }
 
   return errors
