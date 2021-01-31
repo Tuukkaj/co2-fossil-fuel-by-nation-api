@@ -2,7 +2,7 @@
 
 Gofore's  preliminary assignments. Application's goal is to parse given CSV (/data/fossil-fuel-co2-emissions-eviled-1.csv) file and create API that can query it with parameters from, to, type and top. Some of the CSV's lines are corrupted and should be ignored.
 
-## How to improve assigment
+## How to improve assignment
 ***
 Current way of thinking years is assingning them to a array with indexes (year 1950 is index 1950). Another good way of doing this would have been to use objects. Object's key could have been assigned to year and it's value that year's records. That would atleast give chance the year to have some other data with the year's polluters (for example average pollution amount).
 
